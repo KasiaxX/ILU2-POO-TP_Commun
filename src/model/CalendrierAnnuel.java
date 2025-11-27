@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class CalendrierAnnuel {
 	private Mois[] calendrier;
 	
-	public CalendrierAnnuel(int jour, int mois) {
+	public CalendrierAnnuel() {
 		calendrier = new Mois[12];
 		calendrier[0] = new Mois("Janvier", 31);
 		calendrier[1] = new Mois("Février", 30);
@@ -23,10 +23,18 @@ public class CalendrierAnnuel {
 	}
 	
 	public boolean estLibre(int jour, int mois) {
-		return false;
+
+		return calendrier[mois-1].estLibre(jour-1); // le jour est libre dans le mois
+
 	}
 	
 	public boolean reserver(int jour, int mois) {
+		
+		if(estLibre(jour,mois)) {
+			calendrier[mois-1].reserver(jour-1);
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -36,26 +44,24 @@ public class CalendrierAnnuel {
 		private boolean[] jours;
 		
 		private Mois(String nom, int nbJours) {
-			this.nom = nom;	
+			this.nom = nom;
 			this.jours = new boolean[nbJours];
-			for(int i=0; i<nbJours; i++) {
+			for (int i = 0; i < nbJours; i++) {
 				jours[i] = true;
 			}
 		}
-		
+
 		private boolean estLibre(int jour) {
-			if(jours[jour]==false) {
+			if (jours[jour] == false) {
 				return false;
 			}
-			return true;
+			return true; // le jour est libre
 		}
-		
+
 		private void reserver(int jour) {
-			
-			if(jours[jour] == )			
+			jours[jour] = false;
 		}
-		
-		
+
 	}
 
 }
